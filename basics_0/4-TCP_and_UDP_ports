@@ -1,26 +1,7 @@
 #!/usr/bin/env bash
 #display listening ports
 echo "Active Internet connections (only servers)"
-ss -tunlpH | awk '
-BEGIN {
-    print "Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name"
-}
-{
-    # Fill missing process info with whitespace
-    pid_prog = ($7 != "" ? $7 : "")
-    printf "%-5s %-6s %-6s %-22s %-22s %-11s %s\n", $1, $2, $3, $4, $5, $6, pid_prog
-}
-
-'
+netstat -tulnp | grep -E '^(tcp|udp)'
 
 echo "Active UNIX domain sockets (only servers)"
-ss -xlpH | awk '
-BEGIN {
-    print "Proto RefCnt Flags       Type       State         I-Node   PID/Program name    Path"
-}
-{
-    pid_prog = ($6 != "" ? $6 : "")
-    path = ($7 != "" ? $7 : "")
-    printf "%-5s %-6s %-12s %-10s %-13s %-8s %-18s %s\n", $1, $2, $3, $4, $5, "", pid_prog, path
-}
-'
+netstat -lxnp | grep -E '^unix'
