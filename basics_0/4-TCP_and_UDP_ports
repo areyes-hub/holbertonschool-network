@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 #display listening ports
-ss -tunlp
+netstat -tulpen
+
+netstat -lxpen
