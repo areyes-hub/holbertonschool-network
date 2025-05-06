@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # show attached ip's
 # Display all IPv4 addresses, including localhost, each on a new line
-ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+ifconfig | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
